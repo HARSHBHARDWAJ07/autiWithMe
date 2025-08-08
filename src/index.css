@@ -1,0 +1,28 @@
+/* Import IBM Plex Sans Hebrew from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  body {
+    /* use IBM Plex Sans Hebrew as your default font */
+    font-family: 'IBM Plex Sans Hebrew', sans-serif;
+    /* if you had a text color or background, reapply it here */
+  }
+  a:focus,
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px theme('colors.blue.300');
+  }
+}
