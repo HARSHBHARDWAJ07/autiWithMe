@@ -1,29 +1,20 @@
 import React from 'react';
 import { FaLinkedinIn, FaGithub, FaTwitter } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import Button from './Button';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
+
+  const socials = [
+    { icon: <FaTwitter size={18} />, label: 'Twitter', url: 'https://x.com/_Pratham_verma_' },
+    { icon: <FaLinkedinIn size={18} />, label: 'LinkedIn', url: 'https://www.linkedin.com/in/pratham-verma-33095027a/' },
+    { icon: <FaGithub size={18} />, label: 'GitHub', url: 'https://github.com/Prathamverma1' },
+  ];
+
   return (
     <footer className="bg-gray-900 text-gray-400">
-      {/* CTA Section */}
-      <div className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-white mb-6"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Ready to Transform Your Workflow?
-          </motion.h2>
-          
-          
-        </div>
-      </div>
+    
 
       {/* Divider */}
       <div className="border-t border-gray-800" />
@@ -46,29 +37,26 @@ export default function Footer() {
           </p>
           
           <div className="flex space-x-5 mb-8">
-            {[
-              { icon: <FaTwitter size={18} />, label: 'Twitter', url: 'https://x.com/_Pratham_verma_' },
-              { icon: <FaLinkedinIn size={18} />, label: 'LinkedIn', url: 'https://www.linkedin.com/in/pratham-verma-33095027a/' },
-              { icon: <FaGithub size={18} />, label: 'GitHub', url: 'https://github.com/Prathamverma1' },
-            ].map((social, index) => (
+            {socials.map((social, index) => (
               <motion.a
                 key={index}
                 href={social.url}
                 aria-label={social.label}
-                className="p-3 bg-gray-800 rounded-full hover:bg-teal-600 transition-colors duration-300"
+                title={social.label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-gray-800 rounded-full hover:bg-teal-600 transition-colors duration-300 inline-flex items-center justify-center"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                whileHover={{ backgroundColor: '#0D9488' }}
-                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3, delay: index * 0.08 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {social.icon}
               </motion.a>
             ))}
           </div>
-          
-       
         </div>
       </div>
 

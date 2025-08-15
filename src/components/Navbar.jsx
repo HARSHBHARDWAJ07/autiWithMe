@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { HiMenu, HiX } from 'react-icons/hi';
-import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const LINKS = [
@@ -20,7 +19,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    
+
     const sections = LINKS.map((l) => document.getElementById(l.to));
     const observer = new IntersectionObserver(
       (entries) => {
@@ -30,31 +29,33 @@ export default function Navbar() {
       },
       { threshold: 0.6, rootMargin: '-100px 0px 0px 0px' }
     );
-    
+
     window.addEventListener('scroll', handleScroll);
     sections.forEach((sec) => sec && observer.observe(sec));
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       sections.forEach((sec) => sec && observer.unobserve(sec));
     };
   }, []);
 
+  const calendlyUrl = 'https://calendly.com/vermapratham459/30min';
+
   return (
-    <nav 
+    <nav
       className={`fixed w-full bg-white z-50 transition-all duration-300 ${
         scrolled ? 'shadow-md py-2' : 'py-4'
       }`}
     >
       <div className="container mx-auto px-8 sm:px-6 lg:px-20">
         <div className="flex items-center justify-between">
-          <motion.div 
+          <motion.div
             className="text-2xl font-bold text-gray-900"
             whileHover={{ scale: 1.05 }}
           >
             AutoWithMe
           </motion.div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <ul className="flex space-x-8">
@@ -66,15 +67,13 @@ export default function Navbar() {
                     offset={-80}
                     duration={500}
                     className={`relative cursor-pointer px-1 py-2 text-gray-700 transition-colors hover:text-teal-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 rounded ${
-                      active === link.to 
-                        ? 'text-teal-600 font-medium' 
-                        : ''
+                      active === link.to ? 'text-teal-600 font-medium' : ''
                     }`}
                     activeClass="text-teal-600"
                   >
                     {link.label}
                     {active === link.to && (
-                      <motion.div 
+                      <motion.div
                         className="absolute bottom-0 left-0 w-full h-0.5 bg-teal-600"
                         layoutId="navIndicator"
                         transition={{ duration: 0.3 }}
@@ -84,17 +83,20 @@ export default function Navbar() {
                 </li>
               ))}
             </ul>
-            
+
+            {/* Use motion.a for external link so whileHover/whileTap work */}
             <motion.a
-              href="#contact"
+              href={calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-teal-600 text-white rounded-xl px-5 py-2.5 font-semibold shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+              className="bg-teal-600 text-white rounded-xl px-5 py-2.5 font-semibold shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               Book Free Call
             </motion.a>
           </div>
-          
+
           {/* Mobile Menu Button */}
           <motion.button
             className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
@@ -106,7 +108,7 @@ export default function Navbar() {
           </motion.button>
         </div>
       </div>
-      
+
       {/* Mobile Navigation */}
       <AnimatePresence>
         {open && (
@@ -138,18 +140,19 @@ export default function Navbar() {
                 </li>
               ))}
               <li className="pt-2">
-                <a
-                  href="#contact"
+                {/* Use motion.a here too; close menu on click */}
+                <motion.a
+                  href={calendlyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
-                  className="block"
+                  whileTap={{ scale: 0.98 }}
+                  className="block w-full"
                 >
-                  <motion.button
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full bg-teal-600 text-white rounded-xl px-5 py-3 font-semibold shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
-                  >
+                  <div className="w-full bg-teal-600 text-white rounded-xl px-5 py-3 font-semibold shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 text-center">
                     Book Free Automation Call
-                  </motion.button>
-                </a>
+                  </div>
+                </motion.a>
               </li>
             </ul>
           </motion.div>
@@ -158,5 +161,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-Navbar.propTypes = {};
